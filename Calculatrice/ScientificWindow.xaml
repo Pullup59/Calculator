@@ -67,7 +67,7 @@
         <Button x:Name="btnCe" Content="CE" Grid.Row="5" Grid.Column="7" Click="ButtonCE_Click"/>
 
         <Button x:Name="btnPol" Content="Polonaise" Grid.Row="13" Grid.Column="5" Click="ButtonPolonaise_Click"/>
-        <Button x:Name="btnClassic" Content="Classique" Grid.Row="13" Grid.Column="7" Click="ButtonCE_Click"/>
+        <Button x:Name="btnClassic" Content="Classique" Grid.Row="13" Grid.Column="7" Click="ButtonClassic_Click"/>
         <Button x:Name="btnEgal" Content="=" Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="7" Click="ButtonEQUALS_Click"/>
 
     </Grid>

@@ -11,14 +11,11 @@ namespace Calculatrice
     /// </summary>
     public partial class ScientificWindow : Window
     {
-        public MainWindow Mw { get; set; }
-
         private string? exprBefore;
         private bool clearDisplayer = false;
 
-        public ScientificWindow(MainWindow w)
+        public ScientificWindow()
         {
-            Mw = w;
             InitializeComponent();
         }
 
@@ -82,11 +79,9 @@ namespace Calculatrice
         }
 
         //--------------------Change Window----------------------------
-        private void ButtonScientific_Click(object sender, RoutedEventArgs e)
+        private void ButtonClassic_Click(object sender, RoutedEventArgs e)
         {
-            var mw = new MainWindow();
-            Visibility = Visibility.Hidden;
-            mw.Show();
+            this.Close();
         }
     }
 }

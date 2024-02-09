@@ -69,30 +69,8 @@ namespace Calculatrice.Core
         // <END_ARITH_EXPR>  := '+' <ARITH_EXPR>
         //                   := '-' <ARITH_EXPR>
         //                   :=
-        protected bool End_Arith_Expr()//bool hasTerm)
+        protected bool End_Arith_Expr()
         {
-            //string token = Token();
-
-            //if (token == "+" || token == "-")
-            //{
-            //    NextToken();
-            //    Memorize(); // Memorize before trying to parse another term
-
-            //    if (Term()) // Parse the next term
-            //    {
-            //        ASTree rightTree = forest.Pop(); // Get the right operand from the forest
-            //        ASTree leftTree = forest.Pop(); // Get the left operand from the forest
-            //        ASTree newTree = new ASTree(ASType.BINARYOP, token, new List<ASTree> { leftTree, rightTree }); // Create a new ASTree for the operation
-            //        forest.Push(newTree); // Push the new ASTree onto the forest
-            //        return true;
-            //    }
-
-            //    Recall(); // Restore the state if parsing the next term fails
-            //    return false;
-            //}
-
-            //return true; // No operator, end of arithmetic expression
-
             while (Token() == "+" || Token() == "-")
             {
                 string operatorToken = Token();

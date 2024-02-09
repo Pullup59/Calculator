@@ -172,9 +172,11 @@ namespace Calculatrice
 
         private void ButtonScientific_Click(object sender, RoutedEventArgs e) 
         {
-            var scientificWindow = new ScientificWindow(this);
+            var scientificWindow = new ScientificWindow();
             Visibility = Visibility.Hidden;
-            scientificWindow.Show();
+            scientificWindow.ShowDialog();
+
+            Visibility = Visibility.Visible;
         }
     }
 }
