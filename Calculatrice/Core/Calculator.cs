@@ -26,12 +26,15 @@ namespace Calculatrice.Core
                     return (double.Parse(node.Root), null);
                 case ASType.BINARYOP:
                     double left = (double)EvaluateNode(node.Children[0]).Result;
+                    if (node.Children.Count == 1 && node.Root == "-") // Opérateur unaire -
+                        return (-left, null);
                     double right = (double)EvaluateNode(node.Children[1]).Result;
                     switch (node.Root)
                     {
                         case "+": return (left + right, null);
                         case "-": return (left - right, null);
                         case "*": return (left * right, null);
+                        case "%": return (left % right, null);
                         case "/":
                             if (right == 0) return (null, "Infini");
                             return (left / right, null);

@@ -29,27 +29,6 @@ namespace Calculatrice.Core
             return n == 0 || Children != null && Children.Count >= n;
         }
 
-        public string ToReversePolishNotation()
-        {
-            string retour = string.Empty;
-
-            switch(Type)
-            {
-                case ASType.NUMERIC:
-                    retour += Root;
-                    break;
-                case ASType.UNARYOP:
-                    retour += Root + Children[0].ToReversePolishNotation();
-                    break;
-                case ASType.BINARYOP:
-                    retour += Root + Children[0].ToReversePolishNotation() + " " +
-                        Children[1].ToReversePolishNotation() + " " + Root;
-                    break;
-            }
-
-            return retour;
-        }
-
         public int CompareTo(object? b)
         {
             ASTree tree = (ASTree)b;

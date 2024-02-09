@@ -73,10 +73,11 @@ namespace Calculatrice
         {
             if (exprBefore != "" && exprBefore != null)
             {
-                //Parser parser = new();
-                //Calculator calculator = new(parser);
+                Parser parser = new();
+                ReversePolishNotation rpn = new(parser);
 
-                //lblExpr.Content = PolonaiseInverse.Format(exprBefore);
+                var result = ReversePolishNotation.LocalParser(exprBefore);
+                lblExpr.Content = result;
             }
         }
 

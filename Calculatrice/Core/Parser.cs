@@ -22,14 +22,7 @@ namespace Calculatrice.Core
 
         public ASTree? Parse(string input)
         {
-            if (ParseInput(input))
-            {
-                return forest.Pop();
-            }
-            else
-            {
-                return null;
-            }
+            return ParseInput(input) ? forest.Pop() : null;
         }
 
         // 30 + 2 * 5
@@ -69,13 +62,7 @@ namespace Calculatrice.Core
         // <ARITH_EXPR>      := <TERM> <END_ARITH_EXPR>
         protected bool Arith_Expr()
         {
-            //return End_Arith_Expr(Term());
-
-            if (Term())
-            {
-                return End_Arith_Expr();
-            }
-            return false;
+            return Term() ? End_Arith_Expr() : false;
         }
 
         // + b * x + c
@@ -84,52 +71,55 @@ namespace Calculatrice.Core
         //                   :=
         protected bool End_Arith_Expr()//bool hasTerm)
         {
-            //if (!hasTerm) return false;
-            /*
-            string token = Token();
-        
-            if (token == "+" || token == "-")
-            {
-                NextToken();
-                Memorize();  // Memorize before trying to parse another term
-                return Arith_Expr();
-            }
-        
-            return true; */
+            //string token = Token();
 
-            string token = Token();
+            //if (token == "+" || token == "-")
+            //{
+            //    NextToken();
+            //    Memorize(); // Memorize before trying to parse another term
 
-            if (token == "+" || token == "-")
+            //    if (Term()) // Parse the next term
+            //    {
+            //        ASTree rightTree = forest.Pop(); // Get the right operand from the forest
+            //        ASTree leftTree = forest.Pop(); // Get the left operand from the forest
+            //        ASTree newTree = new ASTree(ASType.BINARYOP, token, new List<ASTree> { leftTree, rightTree }); // Create a new ASTree for the operation
+            //        forest.Push(newTree); // Push the new ASTree onto the forest
+            //        return true;
+            //    }
+
+            //    Recall(); // Restore the state if parsing the next term fails
+            //    return false;
+            //}
+
+            //return true; // No operator, end of arithmetic expression
+
+            while (Token() == "+" || Token() == "-")
             {
-                ASTree rightTree = forest.Pop(); // Get the right operand from the forest
+                string operatorToken = Token();
                 NextToken();
                 Memorize(); // Memorize before trying to parse another term
 
                 if (Term()) // Parse the next term
                 {
-                    ASTree leftTree = forest.Pop(); // Get the left operand from the forest
-                    ASTree newTree = new ASTree(ASType.BINARYOP, token, new List<ASTree> { leftTree, rightTree }); // Create a new ASTree for the operation
-                    forest.Push(newTree); // Push the new ASTree onto the forest
-                    return true;
+                    ASTree rightTree = forest.Pop();
+                    ASTree leftTree = forest.Pop();
+                    ASTree newTree = new ASTree(ASType.BINARYOP, operatorToken, new List<ASTree> { leftTree, rightTree });
+                    forest.Push(newTree);
                 }
-
-                Recall(); // Restore the state if parsing the next term fails
-                return false;
+                else
+                {
+                    Recall();
+                    return false; // Unable to parse the next term
+                }
             }
-
-            return true; // No operator, end of arithmetic expression
+            return true;
         }
 
         // b * x
         // <TERM>            := <UNARY_MINUS> <END_TERM>
         protected bool Term()
         {
-            //return End_Term(Unary_Minus());
-            if (Unary_Minus())
-            {
-                return End_Term();
-            }
-            return false;
+            return Unary_Minus() ? End_Term() : false;
         }
 
         // <END_TERM>        := '*' <TERM>
@@ -146,7 +136,7 @@ namespace Calculatrice.Core
             {
                 NextToken();
                 Memorize();  // Memorize before trying to parse another term
-                //return Term();
+
                 if (Term()) // Parse the next term
                 {
                     ASTree rightTree = forest.Pop();
@@ -211,7 +201,6 @@ namespace Calculatrice.Core
         {
             if (Regex.IsMatch(Token(), @"^[0-9]+(\.[0-9]*)?|\.[0-9]+$"))
             {
-                // public ASTree(ASType type, string root="", List<ASTree>? children=null)
                 forest.Push(new ASTree(ASType.NUMERIC, Token()));
                 NextToken();
                 return true;
